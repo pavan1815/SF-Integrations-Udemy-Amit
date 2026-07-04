@@ -1,0 +1,22 @@
+<template>
+  <lightning-card title="Error Monitor" icon-name="standard:logging">
+    <div slot="actions">
+      <lightning-badge if:true={isSubscribed} label="LIVE"></lightning-badge>
+    </div>
+
+    <div class="slds-p-around_medium">
+      <lightning-datatable
+        key-field="id"
+        columns={columns}
+        data={errors}
+        hide-checkbox-column
+        show-row-number-column
+      >
+      </lightning-datatable>
+
+      <p if:false={hasErrors} class="slds-text-color_weak slds-p-around_small">
+        Listening for errors... None received yet.
+      </p>
+    </div>
+  </lightning-card>
+</template>

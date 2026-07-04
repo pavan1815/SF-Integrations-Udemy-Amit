@@ -1,0 +1,50 @@
+<template>
+    <lightning-card title="File Upload for Bulk API Processing" icon-name="standard:file">
+        <div class="slds-p-around_medium">
+
+            <div class="slds-m-bottom_medium">
+                <lightning-file-upload label="Upload CSV File" name="fileUploader" accept=".csv"
+                    onuploadfinished={handleUploadFinished} disabled={isProcessing}></lightning-file-upload>
+                <div class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">
+                    <p>Only CSV files are supported for bulk API processing</p>
+                </div>
+            </div>
+            <!--File Info Display-->
+            <template lwc:if={selectedFile}>
+                <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <strong>File Name :</strong> {selectedFile.title}
+                        </div>
+                        <div class="slds-col">
+                            <strong>File ID</strong>:{selectedFile.documentId}
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!--Submit Button-->
+            <div class="slds-var-p-top_medium">
+                <lightning-button label="Submit For Processing" onclick={handleSubmitForProcessing} variant="brand" disabled={isSubmitButtonDisable} class="slds-m-right_small">
+                </lightning-button>
+                <template lwc:if={selectedFile}>
+                    <lightning-button label="Clear Selection" onclick={handleClearSelection} variant="neutral" disabled={isProcessing} class="slds-m-right_small">
+                    </lightning-button>
+                </template>
+            </div>
+
+            <!--Status Message-->
+            <template lwc:if={statusMessage}>
+                <div class={statusMessageClass} role="alert">
+                  {statusMessage}
+                </div>
+            </template>
+            
+            <template lwc:if={isProcessing}>
+                <div class="slds-is-relative slds-var-m-around_large" >
+                    <lightning-spinner alternative-text="Processing File..." size="medium"></lightning-spinner>
+                </div>
+            </template> 
+        </div>
+    </lightning-card>
+</template>
